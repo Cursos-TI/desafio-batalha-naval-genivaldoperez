@@ -10,6 +10,10 @@ int x_1 = 1; // Define em qual linha o navio horizontal sera posicionado (valore
 int y_1 = 7; // Define em qual coluna o navio horizontal começará a ser impresso (valores de 0 a 7)
 int x_2 = 7; // Define em qual linha o navio vertical começará a ser impresso (valores de 0 a 7)
 int y_2 = 7; // Define em qual coluna o navio vertical sera posicionado (valores de 0 a 9)
+int x_3 = 3; // Define as linhas de um navio na diagonal (valores de 0 a 7)
+int y_3 = 0; // Define as colunas de um navio na diagonal (valores de 0 a 7)
+int x_4 = 9; // Define as linhas de um navio na diagonal (valores de 3 a 9)
+int y_4 = 2; // Define as colunas de um navio na diagonal (valores 0 a 7)
 
 int main() {
     // Nível Novato - Posicionamento dos Navios
@@ -34,7 +38,16 @@ int main() {
     {
         tabuleiro[x_1][y_1 + i] = 3;
         tabuleiro[x_2 + i][y_2] = 3;
+        tabuleiro[x_3 + i][y_3 + i] = 3;
+        tabuleiro[x_4 - i][y_4 + i] = 3;
     }
+
+    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
+    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
+    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
+    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+
+
     
     //Loop que imprime o tabuleiro do jogo
     for (int i = 0; i < 10; i++)
@@ -66,10 +79,7 @@ int main() {
         printf("\n");    
     }
     
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+    
 
     // Nível Mestre - Habilidades Especiais com Matrizes
     // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
