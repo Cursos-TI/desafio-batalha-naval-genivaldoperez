@@ -1,26 +1,29 @@
 #include <stdio.h>
 
 // Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
 
-#define LINHA 10
-#define COLUNA 10
-int x_1 = 1; // Define em qual linha o navio horizontal sera posicionado (valores de 0 a 9)
-int y_1 = 7; // Define em qual coluna o navio horizontal começará a ser impresso (valores de 0 a 7)
-int x_2 = 7; // Define em qual linha o navio vertical começará a ser impresso (valores de 0 a 7)
-int y_2 = 7; // Define em qual coluna o navio vertical sera posicionado (valores de 0 a 9)
-int x_3 = 3; // Define as linhas de um navio na diagonal (valores de 0 a 7)
-int y_3 = 0; // Define as colunas de um navio na diagonal (valores de 0 a 7)
-int x_4 = 9; // Define as linhas de um navio na diagonal (valores de 3 a 9)
-int y_4 = 2; // Define as colunas de um navio na diagonal (valores 0 a 7)
+// Definicao das variaveis globais
+
+#define LINHA 10            // define a quantidade de linhas do tabuleiro
+#define COLUNA 10           // define a quantidade de colunas do tabuleiro
+int x_1 = 0;                // Define em qual linha o navio horizontal sera posicionado (valores de 0 a 9)
+int y_1 = 7;                // Define em qual coluna o navio horizontal começará a ser impresso (valores de 0 a 7)
+int x_2 = 7;                // Define em qual linha o navio vertical começará a ser impresso (valores de 0 a 7)
+int y_2 = 9;                // Define em qual coluna o navio vertical sera posicionado (valores de 0 a 9)
+int x_3 = 0;                // Define as linhas de um navio na diagonal (valores de 0 a 7)
+int y_3 = 0;                // Define as colunas de um navio na diagonal (valores de 0 a 7)
+int x_4 = 9;                // Define as linhas de um navio na diagonal (valores de 3 a 9)
+int y_4 = 0;                // Define as colunas de um navio na diagonal (valores 0 a 7)
+int origem_ocataedro_x = 0; // Define em qual linha inicia a habilidade octaedro
+int origem_ocataedro_y = 3; // Define a partir de qual coluna inicia a habilidade octaedro
+int origem_cruz_x = 7;      // Define em qual linha inicia a habilidade cruz
+int origem_cruz_y = 3;      // Define a partir de qual coluna inicia a habilidade cruz
+int origem_cone_x = 2;      // Define a partir de qual linha inicia a habilidade cone
+int origem_cone_y = 5;      // Define a partir de qual coluna inicia a habilidade cone
 
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
 
+    // define a matriz tabuleiro
     int tabuleiro[LINHA][COLUNA];
 
 
@@ -33,22 +36,114 @@ int main() {
         }
     }
 
-    // Loop que atribui o valor 3 nas coordenadas dos navios vertical e horizontal
+    // Loop que atribui o valor 3 identificando as coordenadas dos navios vertical, horizontal e diagonal
     for (int i = 0; i < 3; i++)
     {
-        tabuleiro[x_1][y_1 + i] = 3;
-        tabuleiro[x_2 + i][y_2] = 3;
-        tabuleiro[x_3 + i][y_3 + i] = 3;
-        tabuleiro[x_4 - i][y_4 + i] = 3;
+        tabuleiro[x_1][y_1 + i] = 3;        // Navio horizontal
+        tabuleiro[x_2 + i][y_2] = 3;        // Navio Vertical
+        tabuleiro[x_3 + i][y_3 + i] = 3;    // Navio Diagonal 1
+        tabuleiro[x_4 - i][y_4 + i] = 3;    // Navio Diagonal 2
     }
 
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+    // Define habilidade cruz
+    int cruz[3][5];
+    for(int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            if (i == 0 && j == 2)
+            {
+                cruz[i][j] = 1;
+            } else if (i == 1)
+            {
+                cruz[i][j] = 1;
+            } else if (i == 2 && j == 2)
+            {
+                cruz[i][j] = 1;
+            } else if ((i == 0 && j != 2) || (i == 2 && j != 2)){
+                cruz[i][j] = 0;
+            }
+        }
+    }
 
+   // Atribui cruz ao tabuleiro
+    for (int i = 0; i < 3; i++)
+    {
+       for (int j = 0; j < 5; j++)
+       {
+            if (cruz[i][j] == 1)
+            {
+                tabuleiro[i + origem_cruz_x][j + origem_cruz_y] = cruz[i][j];
+            }
+       }
+    }
 
-    
+    // Define habilidade cone
+    int cone[3][5];
+    for(int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            if (i == 0 && j == 2)
+            {
+                cone[i][j] = 1;
+            } else if (i == 1 && j > 0 && j < 4)
+            {
+                cone[i][j] = 1;
+            } else if (i == 2)
+            {
+                cone[i][j] = 1;
+            } else if ((i == 0 && j != 2) || (i == 2 && (j == 0 || j == 4))){
+                cone[i][j] = 0;
+            }
+        }
+    }
+
+   // Atribui cone ao tabuleiro
+    for (int i = 0; i < 3; i++)
+    {
+       for (int j = 0; j < 5; j++)
+       {
+            if (cone[i][j] == 1)
+            {
+                tabuleiro[i + origem_cone_x][j + origem_cone_y] = cone[i][j];
+            }
+       }
+    }
+
+     // Define octaedro
+     int octaedro[3][3];
+     for(int i = 0; i < 3; i++)
+     {
+         for (int j = 0; j < 3; j++)
+         {
+             if (i == 0 && j == 1)
+             {
+                 octaedro[i][j] = 1;
+             } else if (i == 1)
+             {
+                 octaedro[i][j] = 1;
+             } else if (i == 2 && j == 1)
+             {
+                 octaedro[i][j] = 1;
+             } else if ((i == 0 && j != 1) || (i == 2 && j != 1)){
+                 octaedro[i][j] = 0;
+             }
+         }
+     }
+
+    // Atribui octaedro ao tabuleiro
+     for (int i = 0; i < 3; i++)
+     {
+        for (int j = 0; j < 3; j++)
+        {
+            if (octaedro[i][j]  == 1)
+            {
+                tabuleiro[i + origem_ocataedro_x][j + origem_ocataedro_y] = octaedro[i][j];
+            }   
+        }
+     }
+     
     //Loop que imprime o tabuleiro do jogo
     for (int i = 0; i < 10; i++)
     {
@@ -79,28 +174,5 @@ int main() {
         printf("\n");    
     }
     
-    
-
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
-
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
-
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
-
     return 0;
 }
